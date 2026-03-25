@@ -4,6 +4,6 @@ namespace EMS.Application.Interfaces;
 
 public interface IAuthService
 {
-    Task<string> Login(LoginDto loginDto);
-    Task<string> Register(RegisterDto registerDto);
+    Task<AuthResponseDto> Login(LoginDto loginDto);
+    Task<AuthResponseDto> Register(RegisterDto registerDto);
 }
