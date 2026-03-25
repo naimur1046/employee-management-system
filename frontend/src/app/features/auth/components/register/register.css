@@ -38,6 +38,13 @@
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 1rem;
+}
+
+.register-form .form-group input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
 .register-form .register-btn {
@@ -49,6 +56,45 @@
   border-radius: 6px;
   font-size: 1.25rem;
   cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.register-form .register-btn:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.register-form .register-btn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.register-form .form-group input.error {
+  border-color: #dc3545;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.alert {
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
 }
 
 .register-form .register-btn:hover {
