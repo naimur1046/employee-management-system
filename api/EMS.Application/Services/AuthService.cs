@@ -37,9 +37,8 @@ public class AuthService : IAuthService
             Password = BCrypt.Net.BCrypt.HashPassword(registerDto.Password)
         };
 
-        await _userRepository.AddAsync(user);
-
         var token = GenerateJwtToken(user);
+        await _userRepository.AddAsync(user);
 
         return new AuthResponseDto
         {
