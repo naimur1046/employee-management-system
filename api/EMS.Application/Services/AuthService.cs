@@ -21,7 +21,7 @@ public class AuthService : IAuthService
         _configuration = configuration;
     }
 
-    public async Task<string> Register(RegisterDto registerDto)
+    public async Task<AuthResponseDto> Register(RegisterDto registerDto)
     {
         var existingUser = await _userRepository.GetByEmailAsync(registerDto.Email);
         if (existingUser != null)
@@ -39,10 +39,18 @@ public class AuthService : IAuthService
 
         await _userRepository.AddAsync(user);
 
-        return GenerateJwtToken(user);
+        var token = GenerateJwtToken(user);
+
+        return new AuthResponseDto
+        {
+            Token = token,
+            Id = user.Id,
+            Name = user.Name,
+            Email = user.Email
+        };
     }
 
-    public async Task<string> Login(LoginDto loginDto)
+    public async Task<AuthResponseDto> Login(LoginDto loginDto)
     {
         var user = await _userRepository.GetByEmailAsync(loginDto.Email);
         if (user == null || !BCrypt.Net.BCrypt.Verify(loginDto.Password, user.Password))
@@ -50,7 +58,15 @@ public class AuthService : IAuthService
             throw new Exception("Invalid email or password.");
         }
 
-        return GenerateJwtToken(user);
+        var token = GenerateJwtToken(user);
+
+        return new AuthResponseDto
+        {
+            Token = token,
+            Id = user.Id,
+            Name = user.Name,
+            Email = user.Email
+        };
     }
 
     private string GenerateJwtToken(User user)
