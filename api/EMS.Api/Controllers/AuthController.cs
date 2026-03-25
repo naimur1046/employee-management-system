@@ -1,3 +1,4 @@
+using EMS.Application.Common;
 using EMS.Application.DTOs.Auth;
 using EMS.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -17,30 +18,30 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
+    public async Task<ActionResult<ApiResponse<AuthResponseDto>>> Register([FromBody] RegisterDto registerDto)
     {
         try
         {
-            var token = await _authService.Register(registerDto);
-            return Ok(new { token });
+            var result = await _authService.Register(registerDto);
+            return Ok(ApiResponse<AuthResponseDto>.SuccessResponse(result, "Registration successful!"));
         }
         catch (Exception ex)
         {
-            return BadRequest(new { message = ex.Message });
+            return BadRequest(ApiResponse<AuthResponseDto>.FailureResponse(ex.Message));
         }
     }
     
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+    public async Task<ActionResult<ApiResponse<AuthResponseDto>>> Login([FromBody] LoginDto loginDto)
     {
         try
         {
-            var token = await _authService.Login(loginDto);
-            return Ok(new { token });
+            var result = await _authService.Login(loginDto);
+            return Ok(ApiResponse<AuthResponseDto>.SuccessResponse(result, "Login successful!"));
         }
         catch (Exception ex)
         {
-            return BadRequest(new { message = ex.Message });
+            return BadRequest(ApiResponse<AuthResponseDto>.FailureResponse(ex.Message));
         }
     }
 }
