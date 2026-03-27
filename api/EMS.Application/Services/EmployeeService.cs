@@ -1,3 +1,4 @@
+using EMS.Application.Common;
 using EMS.Application.DTOs.Employee;
 using EMS.Application.Interfaces;
 using EMS.Domain.Entities;
@@ -32,6 +33,39 @@ public class EmployeeService : IEmployeeService
             Name = e.Name,
             Designation = e.Designation
         });
+    }
+
+    public async Task<EmployeePagedResponseDto> GetPagedAsync(int pageNumber, int pageSize)
+    {
+        var (employees, totalCount) = await _employeeRepository.GetPagedAsync(pageNumber, pageSize);
+        var employeeDtos = employees.Select(e => new EmployeeResponseDto
+        {
+            Id = e.Id,
+            Department = e.Department,
+            FullName = e.FullName,
+            ContactNumber = e.ContactNumber,
+            Organization = e.Organization,
+            Branch = e.Branch,
+            Campus = e.Campus,
+            BloodGroup = e.BloodGroup,
+            OfficeEmail = e.OfficeEmail,
+            Pin = e.Pin,
+            Name = e.Name,
+            Designation = e.Designation
+        });
+
+        var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+
+        return new EmployeePagedResponseDto
+        {
+            Employees = employeeDtos,
+            TotalCount = totalCount,
+            PageNumber = pageNumber,
+            PageSize = pageSize,
+            TotalPages = totalPages,
+            HasPreviousPage = pageNumber > 1,
+            HasNextPage = pageNumber < totalPages
+        };
     }
 
     public async Task<EmployeeResponseDto> GetByIdAsync(Guid id)
