@@ -19,16 +19,18 @@ public class EmployeeController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<ApiResponse<IEnumerable<EmployeeResponseDto>>>> GetAll()
+    public async Task<ActionResult<ApiResponse<EmployeePagedResponseDto>>> GetAll(
+        [FromQuery] int pageNumber = PaginationConstants.DefaultPageNumber, 
+        [FromQuery] int pageSize = PaginationConstants.DefaultPageSize)
     {
         try
         {
-            var result = await _employeeService.GetAllAsync();
-            return Ok(ApiResponse<IEnumerable<EmployeeResponseDto>>.SuccessResponse(result, "Employees retrieved successfully!"));
+            var result = await _employeeService.GetPagedAsync(pageNumber, pageSize);
+            return Ok(ApiResponse<EmployeePagedResponseDto>.SuccessResponse(result, "Employees retrieved successfully!"));
         }
         catch (Exception ex)
         {
-            return BadRequest(ApiResponse<IEnumerable<EmployeeResponseDto>>.FailureResponse(ex.Message));
+            return BadRequest(ApiResponse<EmployeePagedResponseDto>.FailureResponse(ex.Message));
         }
     }
 
