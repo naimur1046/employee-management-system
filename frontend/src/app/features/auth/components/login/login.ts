@@ -39,7 +39,7 @@ export class Login {
             this.successMessage = response.message || 'Login successful!';
             this.loginForm.reset();
             setTimeout(() => {
-              this.router.navigate(['/']);
+              this.router.navigate(['/admin']);
             }, 2000);
           } else {
             this.errorMessage = response.message || 'Login failed!';
