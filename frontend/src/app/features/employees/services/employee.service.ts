@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Employee } from '../models/employee.model';
+import { Observable, map } from 'rxjs';
+import { Employee, EmployeeResponse } from '../models/employee.model';
 import { API_ENDPOINTS } from '../../../../app/core/config/api-endpoints';
 
 @Injectable({
@@ -11,14 +11,19 @@ export class EmployeeService {
   constructor(private http: HttpClient) {}
 
   getEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(API_ENDPOINTS.EMPLOYEES.BASE);
+    return this.http.get<EmployeeResponse>(API_ENDPOINTS.EMPLOYEES.BASE).pipe(
+      map(response => {
+        const employees = response?.data?.employees ?? [];
+        return employees;
+      })
+    );
   }
 
   getEmployeeById(id: number): Observable<Employee> {
     return this.http.get<Employee>(API_ENDPOINTS.EMPLOYEES.BY_ID(id));
   }
 
-  addEmployee(employee: Employee): Observable<Employee> { 
+  addEmployee(employee: Employee): Observable<Employee> {
     return this.http.post<Employee>(API_ENDPOINTS.EMPLOYEES.BASE, employee);
   }
 
@@ -30,7 +35,7 @@ export class EmployeeService {
     return this.http.delete<void>(API_ENDPOINTS.EMPLOYEES.BY_ID(id));
   }
 
- 
+
   searchEmployees(searchTerm: string): Observable<Employee[]> {
     const params = new HttpParams().set('term', searchTerm);
     return this.http.get<Employee[]>(API_ENDPOINTS.EMPLOYEES.SEARCH, { params });
