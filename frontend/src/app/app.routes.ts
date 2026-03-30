@@ -20,9 +20,14 @@ export const routes: Routes = [
           .then(m => m.ManageEmployeeComponent),
       },
       {
-        path: 'employees/:id',
+        path: 'employees/:id/view',
         loadComponent: () => import('./features/employees/components/view/view-employee.component')
           .then(m => m.ViewEmployeeComponent),
+      },
+      {
+        path: 'employees/:id/edit',
+        loadComponent: () => import('./features/employees/components/edit/edit-employee.component')
+          .then(m => m.EditEmployeeComponent),
       },
       {
         path: '',
