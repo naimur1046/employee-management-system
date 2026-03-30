@@ -1,0 +1,145 @@
+<div class="add-department-container">
+  <!-- Success Message -->
+  <div *ngIf="showSuccess" class="success-message">
+    <span class="material-icons">check_circle</span>
+    Department added successfully!
+  </div>
+
+  <!-- Header -->
+  <div class="form-header">
+    <h1 class="form-title">Add New Department</h1>
+    <button class="btn-back" (click)="goBack()">
+      <span class="material-icons">arrow_back</span> Back to List
+    </button>
+  </div>
+
+  <!-- Form -->
+  <form (ngSubmit)="onSubmit()" class="department-form">
+    <div class="form-section">
+      <h2 class="section-title">Department Information</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="name">Department Name *</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            [(ngModel)]="department.name"
+            (ngModelChange)="onInputChange()"
+            class="form-control"
+            placeholder="e.g., Engineering"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="code">Department Code *</label>
+          <input
+            type="text"
+            id="code"
+            name="code"
+            [(ngModel)]="department.code"
+            (ngModelChange)="onInputChange()"
+            class="form-control"
+            placeholder="e.g., ENG"
+          />
+        </div>
+
+        <div class="form-group full-width">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            name="description"
+            [(ngModel)]="department.description"
+            (ngModelChange)="onInputChange()"
+            class="form-control"
+            rows="3"
+            placeholder="Enter department description..."
+          ></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h2 class="section-title">Manager Information</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="managerName">Manager Name *</label>
+          <input
+            type="text"
+            id="managerName"
+            name="managerName"
+            [(ngModel)]="department.managerName"
+            (ngModelChange)="onInputChange()"
+            class="form-control"
+            placeholder="Enter manager's full name"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="managerEmail">Manager Email *</label>
+          <input
+            type="email"
+            id="managerEmail"
+            name="managerEmail"
+            [(ngModel)]="department.managerEmail"
+            (ngModelChange)="onInputChange()"
+            class="form-control"
+            placeholder="Enter manager's email"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="location">Location *</label>
+          <input
+            type="text"
+            id="location"
+            name="location"
+            [(ngModel)]="department.location"
+            (ngModelChange)="onInputChange()"
+            class="form-control"
+            placeholder="e.g., New York, NY"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select
+            id="status"
+            name="status"
+            [(ngModel)]="department.status"
+            class="form-control"
+          >
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="form-error">
+      <span class="material-icons">error</span>
+      {{ errorMessage }}
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <button
+        type="button"
+        class="btn-cancel"
+        (click)="onCancel()"
+        [disabled]="isSubmitting"
+      >
+        <span class="material-icons">close</span> Cancel
+      </button>
+      <button
+        type="submit"
+        class="btn-submit"
+        [disabled]="isSubmitting"
+      >
+        <span class="material-icons">save</span>
+        {{ isSubmitting ? 'Adding...' : 'Add Department' }}
+      </button>
+    </div>
+  </form>
+</div>
