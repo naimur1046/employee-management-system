@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Employee } from '../../models/employee.model';
 import { EmployeeService } from '../../services/employee.service';
 
@@ -26,7 +27,10 @@ export class ManageEmployeeComponent implements OnInit {
 
   @Output() addNew = new EventEmitter<void>();
 
-  constructor(private employeeService: EmployeeService) {}
+  constructor(
+    private employeeService: EmployeeService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadEmployees();
@@ -105,21 +109,21 @@ export class ManageEmployeeComponent implements OnInit {
     this.addNew.emit();
   }
 
-  viewEmployee(id: string | number): void {
+  viewEmployee(id: string): void {
     console.log(`View employee ${id}`);
-    // TODO: Implement view functionality
+    this.router.navigate(['/employees', id]);
   }
 
-  editEmployee(id: string | number): void {
+  editEmployee(id: string): void {
     console.log(`Edit employee ${id}`);
     // TODO: Navigate to edit employee page or open modal
   }
 
-  deleteEmployee(id: string | number): void {
+  deleteEmployee(id: string): void {
     console.log(`Delete employee ${id}`);
     if (confirm('Are you sure you want to delete this employee?')) {
       this.isLoading = true;
-      this.employeeService.deleteEmployee(Number(id)).subscribe({
+      this.employeeService.deleteEmployee(id).subscribe({
         next: () => {
           this.employees = this.employees.filter(e => e.id !== id);
           this.onSearchChange();

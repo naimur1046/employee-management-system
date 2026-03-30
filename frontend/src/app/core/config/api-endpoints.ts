@@ -15,10 +15,10 @@ export const API_ENDPOINTS = {
   
   EMPLOYEES: {
     BASE: `${API_BASE}/employee`,
-    BY_ID: (id: number) => `${API_BASE}/employees/${id}`,
+    BY_ID: (id: string) => `${API_BASE}/employee/${id}`,
     SEARCH: `${API_BASE}/employees/search`,
     BY_DEPARTMENT: (departmentId: number) => `${API_BASE}/employees/department/${departmentId}`,
-    UPLOAD_PHOTO: (id: number) => `${API_BASE}/employees/${id}/upload-photo`
+    UPLOAD_PHOTO: (id: string) => `${API_BASE}/employees/${id}/upload-photo`
   },
   
   DEPARTMENTS: {

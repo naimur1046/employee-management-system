@@ -1,5 +1,5 @@
 export interface Employee {
-  id: string | number;
+  id: string;
   department: string;
   fullName: string;
   contactNumber: string;
@@ -25,6 +25,12 @@ export interface EmployeeResponse {
     hasNextPage: boolean;
     hasPreviousPage: boolean;
   };
+}
+
+export interface SingleEmployeeResponse {
+  success: boolean;
+  message: string;
+  data: Employee;
 }
 
 export interface DropdownOption {

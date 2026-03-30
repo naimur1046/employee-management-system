@@ -15,6 +15,11 @@ export const routes: Routes = [
       .then(m => m.ManageEmployeeComponent),
   },
   {
+    path: 'employees/:id',
+    loadComponent: () => import('./features/employees/components/view/view-employee.component')
+      .then(m => m.ViewEmployeeComponent),
+  },
+  {
     path: '',
     redirectTo: 'auth/login',
     pathMatch: 'full',

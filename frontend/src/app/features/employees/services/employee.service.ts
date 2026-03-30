@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-import { Employee, EmployeeResponse } from '../models/employee.model';
+import { Employee, EmployeeResponse, SingleEmployeeResponse } from '../models/employee.model';
 import { API_ENDPOINTS } from '../../../../app/core/config/api-endpoints';
 
 @Injectable({
@@ -19,19 +19,21 @@ export class EmployeeService {
     );
   }
 
-  getEmployeeById(id: number): Observable<Employee> {
-    return this.http.get<Employee>(API_ENDPOINTS.EMPLOYEES.BY_ID(id));
+  getEmployeeById(id: string): Observable<Employee> {
+    return this.http.get<SingleEmployeeResponse>(API_ENDPOINTS.EMPLOYEES.BY_ID(id)).pipe(
+      map(response => response?.data)
+    );
   }
 
   addEmployee(employee: Employee): Observable<Employee> {
     return this.http.post<Employee>(API_ENDPOINTS.EMPLOYEES.BASE, employee);
   }
 
-  updateEmployee(id: number, employee: Employee): Observable<Employee> {
+  updateEmployee(id: string, employee: Employee): Observable<Employee> {
     return this.http.put<Employee>(API_ENDPOINTS.EMPLOYEES.BY_ID(id), employee);
   }
 
-  deleteEmployee(id: number): Observable<void> {
+  deleteEmployee(id: string): Observable<void> {
     return this.http.delete<void>(API_ENDPOINTS.EMPLOYEES.BY_ID(id));
   }
 
@@ -45,7 +47,7 @@ export class EmployeeService {
     return this.http.get<Employee[]>(API_ENDPOINTS.EMPLOYEES.BY_DEPARTMENT(departmentId));
   }
 
-  uploadEmployeePhoto(id: number, file: File): Observable<{ message: string; photoUrl: string }> {
+  uploadEmployeePhoto(id: string, file: File): Observable<{ message: string; photoUrl: string }> {
     const url = API_ENDPOINTS.EMPLOYEES.UPLOAD_PHOTO(id);
     const formData = new FormData();
     formData.append('photo', file);

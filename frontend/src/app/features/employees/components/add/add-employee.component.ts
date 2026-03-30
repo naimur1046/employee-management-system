@@ -21,7 +21,7 @@ import {
 })
 export class AddEmployeeComponent implements OnInit {
   employee: Employee = {
-    id: 0,
+    id: '',
     department: '',
     fullName: '',
     contactNumber: '',
@@ -123,7 +123,7 @@ export class AddEmployeeComponent implements OnInit {
 
   resetForm(): void {
     this.employee = {
-      id: 0,
+      id: '',
       department: '',
       fullName: '',
       contactNumber: '',
