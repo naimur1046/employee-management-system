@@ -1,6 +1,7 @@
 using EMS.Application.DTOs.Auth;
 using EMS.Application.Interfaces;
 using EMS.Domain.Entities;
+using EMS.Domain.Enums;
 using EMS.Domain.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -39,7 +40,9 @@ public class AuthService : IAuthService
             Id = Guid.NewGuid(),
             Name = registerDto.Name,
             Email = registerDto.Email,
-            Password = BCrypt.Net.BCrypt.HashPassword(registerDto.Password)
+            Password = BCrypt.Net.BCrypt.HashPassword(registerDto.Password),
+            MobileNumber = registerDto.MobileNumber,
+            Role = registerDto.Role
         };
 
         var token = GenerateJwtToken(user);
@@ -51,7 +54,9 @@ public class AuthService : IAuthService
             Token = token,
             Id = user.Id,
             Name = user.Name,
-            Email = user.Email
+            Email = user.Email,
+            MobileNumber = user.MobileNumber,
+            Role = user.Role
         };
     }
 
@@ -73,7 +78,9 @@ public class AuthService : IAuthService
             Token = token,
             Id = user.Id,
             Name = user.Name,
-            Email = user.Email
+            Email = user.Email,
+            MobileNumber = user.MobileNumber,
+            Role = user.Role
         };
     }
 
@@ -88,7 +95,8 @@ public class AuthService : IAuthService
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Name, user.Name)
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Role, user.Role.ToString())
             }),
             Expires = DateTime.UtcNow.AddHours(3),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
