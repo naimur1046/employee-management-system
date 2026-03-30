@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { API_ENDPOINTS } from '../../../../app/core/config/api-endpoints';
 
 export interface Department {
-  id: number;
+  id: string;
   name: string;
   description: string;
   employeeCount: number;
@@ -20,7 +20,7 @@ export class DepartmentService {
     return this.http.get<Department[]>(API_ENDPOINTS.DEPARTMENTS.BASE);
   }
 
-  getDepartmentById(id: number): Observable<Department> {
+  getDepartmentById(id: string): Observable<Department> {
     return this.http.get<Department>(API_ENDPOINTS.DEPARTMENTS.BY_ID(id));
   }
 
@@ -28,15 +28,15 @@ export class DepartmentService {
     return this.http.post<Department>(API_ENDPOINTS.DEPARTMENTS.BASE, department);
   }
 
-  updateDepartment(id: number, department: Department): Observable<Department> {
+  updateDepartment(id: string, department: Department): Observable<Department> {
     return this.http.put<Department>(API_ENDPOINTS.DEPARTMENTS.BY_ID(id), department);
   }
 
-  deleteDepartment(id: number): Observable<void> {
+  deleteDepartment(id: string): Observable<void> {
     return this.http.delete<void>(API_ENDPOINTS.DEPARTMENTS.BY_ID(id));
   }
 
-  getDepartmentWithEmployees(id: number): Observable<Department & { employees: any[] }> {
+  getDepartmentWithEmployees(id: string): Observable<Department & { employees: any[] }> {
     return this.http.get<Department & { employees: any[] }>(
       API_ENDPOINTS.DEPARTMENTS.WITH_EMPLOYEES(id)
     );
