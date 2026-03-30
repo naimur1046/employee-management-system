@@ -40,29 +40,39 @@ export interface DropdownOption {
 
 export const DEPARTMENTS: DropdownOption[] = [
   { value: '', label: 'Select Department' },
-  { value: 'Computer Science', label: 'Computer Science' },
-  { value: 'Electrical Engineering', label: 'Electrical Engineering' },
-  { value: 'Mechanical Engineering', label: 'Mechanical Engineering' },
-  { value: 'Civil Engineering', label: 'Civil Engineering' },
-  { value: 'Mathematics', label: 'Mathematics' },
-  { value: 'Physics', label: 'Physics' },
-  { value: 'Chemistry', label: 'Chemistry' },
-  { value: 'Biology', label: 'Biology' },
-  { value: 'English', label: 'English' },
-  { value: 'Management', label: 'Management' },
-  { value: 'Economics', label: 'Economics' }
+  { value: 'Engineering', label: 'Engineering' },
+  { value: 'Product', label: 'Product' },
+  { value: 'Design', label: 'Design' },
+  { value: 'Quality Assurance', label: 'Quality Assurance' },
+  { value: 'DevOps', label: 'DevOps' },
+  { value: 'Data Science', label: 'Data Science' },
+  { value: 'IT Support', label: 'IT Support' },
+  { value: 'Human Resources', label: 'Human Resources' },
+  { value: 'Marketing', label: 'Marketing' },
+  { value: 'Sales', label: 'Sales' },
+  { value: 'Customer Support', label: 'Customer Support' }
 ];
 
 export const DESIGNATIONS: DropdownOption[] = [
   { value: '', label: 'Select Designation' },
-  { value: 'Professor', label: 'Professor' },
-  { value: 'Associate Professor', label: 'Associate Professor' },
-  { value: 'Assistant Professor', label: 'Assistant Professor' },
-  { value: 'Senior Lecturer', label: 'Senior Lecturer' },
-  { value: 'Lecturer', label: 'Lecturer' },
-  { value: 'Lab Engineer', label: 'Lab Engineer' },
-  { value: 'Researcher', label: 'Researcher' },
-  { value: 'Admin Staff', label: 'Admin Staff' }
+  { value: 'Chief Technology Officer', label: 'Chief Technology Officer (CTO)' },
+  { value: 'VP of Engineering', label: 'VP of Engineering' },
+  { value: 'Engineering Manager', label: 'Engineering Manager' },
+  { value: 'Tech Lead', label: 'Tech Lead' },
+  { value: 'Senior Software Engineer', label: 'Senior Software Engineer' },
+  { value: 'Software Engineer', label: 'Software Engineer' },
+  { value: 'Junior Software Engineer', label: 'Junior Software Engineer' },
+  { value: 'Frontend Developer', label: 'Frontend Developer' },
+  { value: 'Backend Developer', label: 'Backend Developer' },
+  { value: 'Full Stack Developer', label: 'Full Stack Developer' },
+  { value: 'DevOps Engineer', label: 'DevOps Engineer' },
+  { value: 'QA Engineer', label: 'QA Engineer' },
+  { value: 'UI/UX Designer', label: 'UI/UX Designer' },
+  { value: 'Product Manager', label: 'Product Manager' },
+  { value: 'Scrum Master', label: 'Scrum Master' },
+  { value: 'Data Engineer', label: 'Data Engineer' },
+  { value: 'Data Scientist', label: 'Data Scientist' },
+  { value: 'Intern', label: 'Intern' }
 ];
 
 export const BLOOD_GROUPS: DropdownOption[] = [
@@ -79,25 +89,32 @@ export const BLOOD_GROUPS: DropdownOption[] = [
 
 export const CAMPUSES: DropdownOption[] = [
   { value: '', label: 'Select Campus' },
-  { value: 'North', label: 'North Campus' },
-  { value: 'South', label: 'South Campus' },
-  { value: 'East', label: 'East Campus' },
-  { value: 'West', label: 'West Campus' },
-  { value: 'Central', label: 'Central Campus' }
+  { value: 'Dhaka', label: 'Dhaka Office' },
+  { value: 'Chittagong', label: 'Chittagong Office' },
+  { value: 'Sylhet', label: 'Sylhet Office' },
+  { value: 'Rajshahi', label: 'Rajshahi Office' },
+  { value: 'Khulna', label: 'Khulna Office' },
+  { value: 'Barisal', label: 'Barisal Office' },
+  { value: 'Rangpur', label: 'Rangpur Office' },
+  { value: 'Mymensingh', label: 'Mymensingh Office' },
+  { value: 'Comilla', label: 'Comilla Office' },
+  { value: 'Remote', label: 'Remote (Work from Home)' }
 ];
 
 export const BRANCHES: DropdownOption[] = [
   { value: '', label: 'Select Branch' },
-  { value: 'Main Campus', label: 'Main Campus' },
-  { value: 'City Center', label: 'City Center' },
-  { value: 'Suburban', label: 'Suburban' },
-  { value: 'Online', label: 'Online' }
+  { value: 'Head Office', label: 'Head Office' },
+  { value: 'Development Center', label: 'Development Center' },
+  { value: 'Research Lab', label: 'Research Lab' },
+  { value: 'Co-working Space', label: 'Co-working Space' },
+  { value: 'Remote', label: 'Remote' }
 ];
 
 export const ORGANIZATIONS: DropdownOption[] = [
   { value: '', label: 'Select Organization' },
-  { value: 'Tech University', label: 'Tech University' },
-  { value: 'State College', label: 'State College' },
-  { value: 'Private Institute', label: 'Private Institute' },
-  { value: 'Research Center', label: 'Research Center' }
+  { value: 'Tech Solutions Ltd', label: 'Tech Solutions Ltd' },
+  { value: 'Digital Innovations', label: 'Digital Innovations' },
+  { value: 'Software House BD', label: 'Software House BD' },
+  { value: 'Cloud Services', label: 'Cloud Services' },
+  { value: 'Startup Hub', label: 'Startup Hub' }
 ];
