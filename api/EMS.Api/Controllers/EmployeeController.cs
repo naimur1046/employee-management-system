@@ -12,10 +12,12 @@ namespace EMS.Api.Controllers;
 public class EmployeeController : ControllerBase
 {
     private readonly IEmployeeService _employeeService;
+    private readonly ILogger<EmployeeController> _logger;
 
-    public EmployeeController(IEmployeeService employeeService)
+    public EmployeeController(IEmployeeService employeeService, ILogger<EmployeeController> logger)
     {
         _employeeService = employeeService;
+        _logger = logger;
     }
 
     [HttpGet]
@@ -25,11 +27,13 @@ public class EmployeeController : ControllerBase
     {
         try
         {
+            _logger.LogInformation("Retrieving paged employees: Page {PageNumber}, Size {PageSize}", pageNumber, pageSize);
             var result = await _employeeService.GetPagedAsync(pageNumber, pageSize);
             return Ok(ApiResponse<EmployeePagedResponseDto>.SuccessResponse(result, "Employees retrieved successfully!"));
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Error retrieving paged employees: Page {PageNumber}, Size {PageSize}", pageNumber, pageSize);
             return BadRequest(ApiResponse<EmployeePagedResponseDto>.FailureResponse(ex.Message));
         }
     }
@@ -39,11 +43,13 @@ public class EmployeeController : ControllerBase
     {
         try
         {
+            _logger.LogInformation("Retrieving employee by Id: {EmployeeId}", id);
             var result = await _employeeService.GetByIdAsync(id);
             return Ok(ApiResponse<EmployeeResponseDto>.SuccessResponse(result, "Employee retrieved successfully!"));
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Error retrieving employee by Id: {EmployeeId}", id);
             return BadRequest(ApiResponse<EmployeeResponseDto>.FailureResponse(ex.Message));
         }
     }
@@ -53,11 +59,13 @@ public class EmployeeController : ControllerBase
     {
         try
         {
+            _logger.LogInformation("Creating new employee with email: {OfficeEmail}", dto.OfficeEmail);
             var result = await _employeeService.CreateAsync(dto);
             return Ok(ApiResponse<EmployeeResponseDto>.SuccessResponse(result, "Employee created successfully!"));
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Error creating employee with email: {OfficeEmail}", dto.OfficeEmail);
             return BadRequest(ApiResponse<EmployeeResponseDto>.FailureResponse(ex.Message));
         }
     }
@@ -67,11 +75,13 @@ public class EmployeeController : ControllerBase
     {
         try
         {
+            _logger.LogInformation("Updating employee with Id: {EmployeeId}", id);
             var result = await _employeeService.UpdateAsync(id, dto);
             return Ok(ApiResponse<EmployeeResponseDto>.SuccessResponse(result, "Employee updated successfully!"));
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Error updating employee with Id: {EmployeeId}", id);
             return BadRequest(ApiResponse<EmployeeResponseDto>.FailureResponse(ex.Message));
         }
     }
@@ -81,11 +91,13 @@ public class EmployeeController : ControllerBase
     {
         try
         {
+            _logger.LogInformation("Deleting employee with Id: {EmployeeId}", id);
             await _employeeService.DeleteAsync(id);
             return Ok(ApiResponse<bool>.SuccessResponse(true, "Employee deleted successfully!"));
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Error deleting employee with Id: {EmployeeId}", id);
             return BadRequest(ApiResponse<bool>.FailureResponse(ex.Message));
         }
     }

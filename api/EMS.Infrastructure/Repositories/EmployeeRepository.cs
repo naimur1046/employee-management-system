@@ -66,6 +66,6 @@ public class EmployeeRepository : IEmployeeRepository
     public async Task<Employee?> GetByEmailAsync(string email)
     {
         return await _context.Employees
-            .FirstOrDefaultAsync(e => e.OfficeEmail == email && !e.IsDeleted);
+            .FirstOrDefaultAsync(e => e.OfficeEmail == email);
     }
 }
