@@ -11,9 +11,25 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<Employee> Employees { get; set; }
+    public DbSet<Department> Departments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Department>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Code).IsRequired().HasMaxLength(20);
+            entity.HasIndex(e => e.Code).IsUnique();
+            entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.ManagerName).HasMaxLength(100);
+            entity.Property(e => e.ManagerEmail).HasMaxLength(100);
+            entity.Property(e => e.Location).HasMaxLength(100);
+            entity.Property(e => e.Status)
+                .IsRequired()
+                .HasConversion<string>();
+        });
+
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Id);
@@ -21,6 +37,10 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
             entity.HasIndex(e => e.Email).IsUnique();
             entity.Property(e => e.Password).IsRequired();
+            entity.Property(e => e.MobileNumber).HasMaxLength(20);
+            entity.Property(e => e.Role)
+                .IsRequired()
+                .HasConversion<string>();
         });
 
         modelBuilder.Entity<Employee>(entity =>

@@ -16,12 +16,14 @@ export class LayoutComponent {
   sections = [
     { id: 'dashboard', name: 'Dashboard' },
     { id: 'employees', name: 'Employees' },
+    { id: 'departments', name: 'Departments' },
     { id: 'settings', name: 'Settings' }
   ];
 
   sectionIcons: { [key: string]: string } = {
     dashboard: 'dashboard',
     employees: 'people',
+    departments: 'business',
     settings: 'settings'
   };
 
@@ -41,6 +43,8 @@ export class LayoutComponent {
     const url = this.router.url;
     if (url.includes('/employees')) {
       this.activeSection = 'employees';
+    } else if (url.includes('/departments')) {
+      this.activeSection = 'departments';
     } else if (url.includes('/admin')) {
       if (url.includes('section=employees')) {
         this.activeSection = 'employees';
@@ -52,13 +56,16 @@ export class LayoutComponent {
 
   selectSection(sectionId: string): void {
     this.activeSection = sectionId;
-    
+
     switch(sectionId) {
       case 'dashboard':
         this.router.navigate(['/admin']);
         break;
       case 'employees':
         this.router.navigate(['/employees']);
+        break;
+      case 'departments':
+        this.router.navigate(['/departments']);
         break;
       case 'settings':
         // Navigate to settings when implemented
