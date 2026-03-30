@@ -65,6 +65,7 @@ export class ManageDepartmentComponent implements OnInit {
       this.filteredDepartments = this.departments.filter(dept =>
         dept.name.toLowerCase().includes(term) ||
         dept.code.toLowerCase().includes(term) ||
+        dept.location.toLowerCase().includes(term) ||
         dept.managerName.toLowerCase().includes(term) ||
         dept.managerEmail.toLowerCase().includes(term) ||
         dept.description.toLowerCase().includes(term)
