@@ -1,5 +1,4 @@
 <div class="view-employee-container">
-  <!-- Loading State -->
   <ng-container *ngIf="isLoading; else contentOrError">
     <div class="loading-container">
       <div class="loading-spinner"></div>
@@ -17,15 +16,10 @@
     </div>
 
     <div *ngIf="!error && employee" class="employee-details-wrapper">
-      <!-- Title Section -->
       <div class="max-w-4xl mx-auto text-center mb-12">
-        <h1 class="text-5xl md:text-6xl font-extrabold text-[#053355] mb-4">
-          Employee Details
-        </h1>
+        <h1 class="text-5xl md:text-6xl font-extrabold text-[#053355] mb-4">Employee Details</h1>
         <div class="w-24 h-1 bg-[#FFB452] mx-auto rounded-full mb-4"></div>
       </div>
-
-      <!-- Employee Info Card -->
       <div class="employee-card">
         <div class="card-header">
           <h2 class="employee-name">{{ employee.fullName }}</h2>

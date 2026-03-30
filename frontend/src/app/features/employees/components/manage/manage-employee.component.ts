@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -24,8 +24,6 @@ export class ManageEmployeeComponent implements OnInit {
 
   isLoading: boolean = false;
   error: string | null = null;
-
-  @Output() addNew = new EventEmitter<void>();
 
   constructor(
     private employeeService: EmployeeService,
@@ -106,7 +104,7 @@ export class ManageEmployeeComponent implements OnInit {
 
   addNewEmployee(): void {
     console.log('Add new employee clicked');
-    this.addNew.emit();
+    this.router.navigate(['/admin'], { queryParams: { section: 'add' } });
   }
 
   viewEmployee(id: string): void {

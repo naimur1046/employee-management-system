@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ManageEmployeeComponent } from '../../employees/components/manage/manage-employee.component';
 import { AddEmployeeComponent } from '../../employees/components/add/add-employee.component';
@@ -13,37 +13,30 @@ import { AddEmployeeComponent } from '../../employees/components/add/add-employe
   imports: [CommonModule, RouterModule, DashboardComponent, ManageEmployeeComponent, AddEmployeeComponent]
 })
 export class AdminDashboard implements OnInit {
-  sections = [
-    { id: 'dashboard', name: 'Dashboard' },
-    { id: 'employees', name: 'Employees' },
-    { id: 'settings', name: 'Settings' }
-  ];
-
   activeSection: string = 'dashboard';
 
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+
   ngOnInit(): void {
-    this.activeSection = 'dashboard';
-  }
-
-  selectSection(sectionId: string): void {
-    this.activeSection = sectionId;
-  }
-
-  getActiveSectionName(): string {
-    const section = this.sections.find(s => s.id === this.activeSection);
-    return section ? section.name : 'Dashboard';
+    this.route.queryParams.subscribe(params => {
+      if (params['section'] === 'add') {
+        this.activeSection = 'addEmployee';
+      } else if (params['section'] === 'employees') {
+        this.activeSection = 'employees';
+      } else {
+        this.activeSection = 'dashboard';
+      }
+    });
   }
 
   showAddEmployee(): void {
-    this.activeSection = 'addEmployee';
+    this.router.navigate(['/admin'], { queryParams: { section: 'add' } });
   }
 
   showManageEmployees(): void {
-    this.activeSection = 'employees';
-  }
-
-  openAddModal(): void {
-    console.log(`Opening add modal for ${this.activeSection}`);
-    alert(`Add new ${this.activeSection} feature coming soon!`);
+    this.router.navigate(['/admin'], { queryParams: { section: 'employees' } });
   }
 }
