@@ -23,8 +23,9 @@ export const API_ENDPOINTS = {
   
   DEPARTMENTS: {
     BASE: `${API_BASE}/departments`,
-    BY_ID: (id: number) => `${API_BASE}/departments/${id}`,
-    WITH_EMPLOYEES: (id: number) => `${API_BASE}/departments/${id}/employees`
+    BY_ID: (id: string) => `${API_BASE}/departments/${id}`,
+    WITH_EMPLOYEES: (id: string) => `${API_BASE}/departments/${id}/employees`,
+    SEARCH: `${API_BASE}/departments/search`
   },
   
   ORGANIZATIONS: {
