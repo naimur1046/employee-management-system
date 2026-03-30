@@ -30,6 +30,10 @@ export const routes: Routes = [
           .then(m => m.EditEmployeeComponent),
       },
       {
+        path: 'departments',
+        loadChildren: () => import('./features/departments/departments-routing').then(m => m.departmentsRoutes),
+      },
+      {
         path: '',
         redirectTo: 'admin',
         pathMatch: 'full',
