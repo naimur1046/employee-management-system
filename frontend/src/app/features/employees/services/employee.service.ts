@@ -26,11 +26,15 @@ export class EmployeeService {
   }
 
   addEmployee(employee: Employee): Observable<Employee> {
-    return this.http.post<Employee>(API_ENDPOINTS.EMPLOYEES.BASE, employee);
+    return this.http.post<SingleEmployeeResponse>(API_ENDPOINTS.EMPLOYEES.BASE, employee).pipe(
+      map(response => response?.data)
+    );
   }
 
   updateEmployee(id: string, employee: Employee): Observable<Employee> {
-    return this.http.put<Employee>(API_ENDPOINTS.EMPLOYEES.BY_ID(id), employee);
+    return this.http.put<SingleEmployeeResponse>(API_ENDPOINTS.EMPLOYEES.BY_ID(id), employee).pipe(
+      map(response => response?.data)
+    );
   }
 
   deleteEmployee(id: string): Observable<void> {
