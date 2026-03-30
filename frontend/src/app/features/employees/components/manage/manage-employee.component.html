@@ -1,5 +1,14 @@
 <div class="manage-employee-container">
-  <!-- Loading State -->
+  <div *ngIf="successMessage" class="success-message">
+    <span class="material-icons">check_circle</span>
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <span class="material-icons">error</span>
+    {{ error }}
+  </div>
+
   <ng-container *ngIf="isLoading; else contentOrError">
     <div class="loading-container">
       <div class="loading-spinner"></div>
@@ -8,14 +17,6 @@
   </ng-container>
 
   <ng-template #contentOrError>
-    <div *ngIf="error" class="error-container">
-      <span class="material-icons error-icon">error_outline</span>
-      <p class="error-message">{{ error }}</p>
-      <button class="btn-retry" (click)="loadEmployees()">
-        <span class="material-icons">refresh</span> Retry
-      </button>
-    </div>
-
     <div *ngIf="!error">
       <div class="header-section">
         <h1 class="page-title">Manage Employee Details</h1>
@@ -90,7 +91,7 @@
                     </button>
                     <button
                       class="btn-action btn-delete"
-                      (click)="deleteEmployee(employee.id)"
+                      (click)="openDeleteModal(employee.id, employee.fullName)"
                       title="Delete"
                     >
                       <span class="material-icons">delete</span>
@@ -138,4 +139,12 @@
       </div>
     </div>
   </ng-template>
+
+  <!-- Delete Confirmation Modal -->
+  <app-delete-confirmation-modal
+    [isVisible]="showDeleteModal"
+    [employeeName]="employeeToDelete?.name || ''"
+    (close)="closeDeleteModal()"
+    (confirm)="confirmDelete()">
+  </app-delete-confirmation-modal>
 </div>

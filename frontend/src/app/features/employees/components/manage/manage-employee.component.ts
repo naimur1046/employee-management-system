@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Employee } from '../../models/employee.model';
 import { EmployeeService } from '../../services/employee.service';
+import { DeleteConfirmationModalComponent } from '../delete-confirmation-modal/delete-confirmation-modal.component';
 
 @Component({
   selector: 'app-manage-employee',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, DeleteConfirmationModalComponent],
   templateUrl: './manage-employee.component.html',
   styleUrls: ['./manage-employee.component.css']
 })
@@ -16,14 +17,15 @@ export class ManageEmployeeComponent implements OnInit {
   employees: Employee[] = [];
   filteredEmployees: Employee[] = [];
   searchTerm: string = '';
-
   currentPage: number = 1;
   pageSize: number = 10;
   totalPages: number = 0;
   pageNumbers: number[] = [];
-
   isLoading: boolean = false;
   error: string | null = null;
+  successMessage: string | null = null;
+  showDeleteModal: boolean = false;
+  employeeToDelete: { id: string; name: string } | null = null;
 
   constructor(
     private employeeService: EmployeeService,
@@ -37,6 +39,7 @@ export class ManageEmployeeComponent implements OnInit {
   loadEmployees(): void {
     this.isLoading = true;
     this.error = null;
+    this.successMessage = null;
     console.log('Loading started, isLoading:', this.isLoading);
 
     this.employeeService.getEmployees().subscribe({
@@ -75,7 +78,7 @@ export class ManageEmployeeComponent implements OnInit {
         employee.branch.toLowerCase().includes(term) ||
         employee.campus.toLowerCase().includes(term)
       );
-      
+
     }
 
     this.currentPage = 1;
@@ -117,22 +120,42 @@ export class ManageEmployeeComponent implements OnInit {
     // TODO: Navigate to edit employee page or open modal
   }
 
-  deleteEmployee(id: string): void {
-    console.log(`Delete employee ${id}`);
-    if (confirm('Are you sure you want to delete this employee?')) {
-      this.isLoading = true;
-      this.employeeService.deleteEmployee(id).subscribe({
-        next: () => {
-          this.employees = this.employees.filter(e => e.id !== id);
-          this.onSearchChange();
-          this.isLoading = false;
-        },
-        error: (error) => {
-          console.error('Error deleting employee:', error);
-          this.error = 'Failed to delete employee. Please try again.';
-          this.isLoading = false;
-        }
-      });
-    }
+  openDeleteModal(id: string, name: string): void {
+    this.employeeToDelete = { id, name };
+    this.showDeleteModal = true;
+  }
+
+  closeDeleteModal(): void {
+    this.showDeleteModal = false;
+    this.employeeToDelete = null;
+  }
+
+  confirmDelete(): void {
+    if (!this.employeeToDelete) return;
+
+    this.isLoading = true;
+    this.error = null;
+    this.successMessage = null;
+
+    this.employeeService.deleteEmployee(this.employeeToDelete.id).subscribe({
+      next: () => {
+        this.employees = this.employees.filter(e => e.id !== this.employeeToDelete!.id);
+        this.onSearchChange();
+        this.isLoading = false;
+        this.successMessage = `Employee "${this.employeeToDelete!.name}" deleted successfully!`;
+        this.closeDeleteModal();
+        setTimeout(() => {
+          this.successMessage = null;
+        }, 3000);
+      },
+      error: (error) => {
+        console.error('Error deleting employee:', error);
+        this.error = 'Failed to delete employee. Please try again.';
+        this.isLoading = false;
+        setTimeout(() => {
+          this.error = null;
+        }, 5000);
+      }
+    });
   }
 }
