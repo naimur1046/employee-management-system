@@ -112,12 +112,12 @@ export class ManageEmployeeComponent implements OnInit {
 
   viewEmployee(id: string): void {
     console.log(`View employee ${id}`);
-    this.router.navigate(['/employees', id]);
+    this.router.navigate(['/employees', id, 'view']);
   }
 
   editEmployee(id: string): void {
     console.log(`Edit employee ${id}`);
-    // TODO: Navigate to edit employee page or open modal
+    this.router.navigate(['/employees', id, 'edit']);
   }
 
   openDeleteModal(id: string, name: string): void {
