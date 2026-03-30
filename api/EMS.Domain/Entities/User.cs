@@ -10,4 +10,5 @@ public class User : BaseEntity
     public string Password { get; set; } = string.Empty;
     public string? MobileNumber { get; set; }
     public UserRole Role { get; set; } = UserRole.User;
+    public UserStatus Status { get; set; } = UserStatus.Active;
 }
