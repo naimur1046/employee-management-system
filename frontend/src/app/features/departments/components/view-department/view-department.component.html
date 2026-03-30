@@ -1,0 +1,82 @@
+<div class="view-department-container">
+  <ng-container *ngIf="isLoading; else contentOrError">
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading department details...</p>
+    </div>
+  </ng-container>
+
+  <ng-template #contentOrError>
+    <div *ngIf="error" class="error-container">
+      <span class="material-icons error-icon">error_outline</span>
+      <p class="error-message">{{ error }}</p>
+      <button class="btn-retry" (click)="goBack()">
+        <span class="material-icons">arrow_back</span> Back to List
+      </button>
+    </div>
+
+    <div *ngIf="!error && department" class="department-details-wrapper">
+      <div class="max-w-4xl mx-auto text-center mb-12">
+        <h1 class="text-5xl md:text-6xl font-extrabold text-[#053355] mb-4">
+          Department Details
+        </h1>
+        <div class="w-24 h-1 bg-[#FFB452] mx-auto rounded-full mb-4"></div>
+      </div>
+
+      <div class="department-card">
+        <div class="card-header">
+          <div class="department-info">
+            <h2 class="department-name">{{ department.name }}</h2>
+            <span class="department-code">{{ department.code }}</span>
+          </div>
+          <span class="status-badge" [class.active]="department.status === 'active'" [class.inactive]="department.status === 'inactive'">
+            {{ department.status === 'active' ? 'Active' : 'Inactive' }}
+          </span>
+        </div>
+
+        <div class="card-body">
+          <div class="info-grid">
+            <div class="info-item full-width">
+              <label>Description</label>
+              <p>{{ department.description || 'No description available' }}</p>
+            </div>
+
+            <div class="info-item">
+              <label>Location</label>
+              <p>{{ department.location || 'Not assigned' }}</p>
+            </div>
+
+            <div class="info-item">
+              <label>Manager Name</label>
+              <p>{{ department.managerName || 'Not assigned' }}</p>
+            </div>
+
+            <div class="info-item">
+              <label>Manager Email</label>
+              <p>{{ department.managerEmail || 'Not assigned' }}</p>
+            </div>
+
+            <div class="info-item">
+              <label>Employee Count</label>
+              <p class="employee-count">{{ department.employeeCount }}</p>
+            </div>
+
+            <div class="info-item">
+              <label>Last Updated</label>
+              <p>{{ (department.updatedAt | date:'MMM d, y') || 'N/A' }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <button class="btn-back" (click)="goBack()">
+            <span class="material-icons">arrow_back</span> Back to List
+          </button>
+          <button class="btn-edit" (click)="editDepartment()">
+            <span class="material-icons">edit</span> Edit Department
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
