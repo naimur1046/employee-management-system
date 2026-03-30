@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { LayoutComponent } from './core/components/layout/layout.component';
 
 export const routes: Routes = [
   {
@@ -7,7 +8,36 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'auth/login',
-    pathMatch: 'full',
+    component: LayoutComponent,
+    children: [
+      {
+        path: 'admin',
+        loadChildren: () => import('./features/admin/admin-routing').then(m => m.adminRoutes),
+      },
+      {
+        path: 'employees',
+        loadComponent: () => import('./features/employees/components/manage/manage-employee.component')
+          .then(m => m.ManageEmployeeComponent),
+      },
+      {
+        path: 'employees/:id/view',
+        loadComponent: () => import('./features/employees/components/view/view-employee.component')
+          .then(m => m.ViewEmployeeComponent),
+      },
+      {
+        path: 'employees/:id/edit',
+        loadComponent: () => import('./features/employees/components/edit/edit-employee.component')
+          .then(m => m.EditEmployeeComponent),
+      },
+      {
+        path: 'departments',
+        loadChildren: () => import('./features/departments/departments-routing').then(m => m.departmentsRoutes),
+      },
+      {
+        path: '',
+        redirectTo: 'admin',
+        pathMatch: 'full',
+      },
+    ]
   },
 ];

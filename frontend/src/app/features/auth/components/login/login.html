@@ -1,47 +1,76 @@
-<div class="login-container">
-  <div class="login-box">
-    <h3 class="title">Login</h3>
-
-    <div *ngIf="successMessage" class="alert alert-success">
-      {{ successMessage }}
-    </div>
-
-    <div *ngIf="errorMessage" class="alert alert-error">
-      {{ errorMessage }}
-    </div>
+<div
+  class="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#06608a] to-[#1DAEDA]"
+>
+  <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md">
+    <h1 class="text-4xl font-bold text-center text-[#053355] mb-2">Login</h1>
+    <div class="w-24 h-1 bg-[#FFB452] mx-auto rounded-full mb-4"></div>
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="email">Email</label>
+      <div class="mb-4">
+        <label for="email" class="block text-gray-700 text-base font-bold mb-2"> Email </label>
         <input
           type="email"
           id="email"
           formControlName="email"
-          placeholder="Enter your email"
-          [class.error]="email?.invalid && email?.touched"
+          placeholder="Enter your email or contact number"
+          class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-lg text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          [class.border-red-500]="email?.invalid && email?.touched"
         />
-        <div *ngIf="email?.invalid && email?.touched" class="error-message">
+        <div *ngIf="email?.invalid && email?.touched" class="text-red-600 text-sm mt-1">
           <span *ngIf="email?.errors?.['required']">Email is required.</span>
           <span *ngIf="email?.errors?.['email']">Please enter a valid email address.</span>
         </div>
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
+
+      <div class="mb-6">
+        <label for="password" class="block text-gray-700 text-base font-bold mb-2">
+          Password
+        </label>
         <input
           type="password"
           id="password"
           formControlName="password"
           placeholder="Enter your password"
-          [class.error]="password?.invalid && password?.touched"
+          class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-lg text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+          [class.border-red-500]="password?.invalid && password?.touched"
         />
-        <div *ngIf="password?.invalid && password?.touched" class="error-message">
+        <div *ngIf="password?.invalid && password?.touched" class="text-red-600 text-sm mt-1">
           <span *ngIf="password?.errors?.['required']">Password is required.</span>
           <span *ngIf="password?.errors?.['minlength']"
             >Password must be at least 6 characters long.</span
           >
         </div>
       </div>
-      <button type="submit" class="login-btn" [disabled]="loginForm.invalid">Login</button>
+
+      <div *ngIf="errorMessage" class="mb-4 text-red-600 text-base text-center">
+        {{ errorMessage }}
+      </div>
+
+      <div *ngIf="successMessage" class="mb-4 text-green-600 text-base text-center">
+        {{ successMessage }}
+      </div>
+
+      <div class="flex items-center justify-center">
+        <button
+          type="submit"
+          [disabled]="loginForm.invalid || isLoading"
+          class="login-button"
+        >
+          {{ isLoading ? 'Logging in...' : 'Login' }}
+        </button>
+      </div>
     </form>
+
+    <div class="mt-6 text-center">
+      <p class="text-gray-700 text-base">
+        Don't have an account?
+        <button
+          (click)="navigateToSignup()"
+          class="text-[#053355] font-bold hover:underline focus:outline-none"
+        >
+          Sign Up
+        </button>
+      </p>
+    </div>
   </div>
 </div>

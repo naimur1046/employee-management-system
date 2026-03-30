@@ -1,0 +1,12 @@
+<div class="admin-content">
+  <app-dashboard *ngIf="activeSection === 'dashboard'"></app-dashboard>
+  <app-manage-employee
+    *ngIf="activeSection === 'employees'"
+    (addNew)="showAddEmployee()">
+  </app-manage-employee>
+  <app-add-employee
+    *ngIf="activeSection === 'addEmployee'"
+    (cancel)="showManageEmployees()"
+    (employeeAdded)="showManageEmployees()">
+  </app-add-employee>
+</div>

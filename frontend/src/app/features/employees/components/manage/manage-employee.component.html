@@ -1,0 +1,150 @@
+<div class="manage-employee-container">
+  <div *ngIf="successMessage" class="success-message">
+    <span class="material-icons">check_circle</span>
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <span class="material-icons">error</span>
+    {{ error }}
+  </div>
+
+  <ng-container *ngIf="isLoading; else contentOrError">
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading employees...</p>
+    </div>
+  </ng-container>
+
+  <ng-template #contentOrError>
+    <div *ngIf="!error">
+      <div class="header-section">
+        <h1 class="page-title">Manage Employee Details</h1>
+        <button class="btn-add-new" (click)="addNewEmployee()">
+          <span class="icon-placeholder">+</span> Add New Employee
+        </button>
+      </div>
+      <div class="search-section">
+        <div class="search-box">
+          <span class="icon-placeholder search-icon">🔍</span>
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Search employee by name, email, department, designation..."
+            [(ngModel)]="searchTerm"
+            (ngModelChange)="onSearchChange()"
+          />
+        </div>
+      </div>
+      <div class="table-section">
+        <div class="table-header">
+          <h2 class="table-title">Employee List</h2>
+          <span class="total-count">{{ filteredEmployees.length }} Employee(s)</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="employee-table">
+            <thead>
+              <tr>
+                <th>Department</th>
+                <th>Full Name</th>
+                <th>Contact Number</th>
+                <th>Organization</th>
+                <th>Branch</th>
+                <th>Campus</th>
+                <th>Blood Group</th>
+                <th>Office Email</th>
+                <th>Pin</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let employee of paginatedEmployees">
+                <td>{{ employee.department }}</td>
+                <td>{{ employee.fullName }}</td>
+                <td>{{ employee.contactNumber }}</td>
+                <td>{{ employee.organization }}</td>
+                <td>{{ employee.branch }}</td>
+                <td>{{ employee.campus }}</td>
+                <td>{{ employee.bloodGroup }}</td>
+                <td>{{ employee.officeEmail }}</td>
+                <td>{{ employee.pin }}</td>
+                <td>{{ employee.name }}</td>
+                <td>{{ employee.designation }}</td>
+                <td>
+                  <div class="action-buttons">
+                    <button
+                      class="btn-action btn-view"
+                      (click)="viewEmployee(employee.id)"
+                      title="View"
+                    >
+                      <span class="material-icons">visibility</span>
+                    </button>
+                    <button
+                      class="btn-action btn-edit"
+                      (click)="editEmployee(employee.id)"
+                      title="Edit"
+                    >
+                      <span class="material-icons">edit</span>
+                    </button>
+                    <button
+                      class="btn-action btn-delete"
+                      (click)="openDeleteModal(employee.id, employee.fullName)"
+                      title="Delete"
+                    >
+                      <span class="material-icons">delete</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="filteredEmployees.length === 0">
+                <td colspan="12" class="no-data">No employees found</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination-section" *ngIf="totalPages > 1">
+          <button
+            class="btn-pagination"
+            [disabled]="currentPage === 1"
+            (click)="changePage(currentPage - 1)"
+          >
+            Previous
+          </button>
+
+          <div class="page-numbers">
+            <button
+              *ngFor="let page of pageNumbers"
+              class="btn-page-number"
+              [class.active]="page === currentPage"
+              (click)="changePage(page)"
+            >
+              {{ page }}
+            </button>
+          </div>
+
+          <button
+            class="btn-pagination"
+            [disabled]="currentPage === totalPages"
+            (click)="changePage(currentPage + 1)"
+          >
+            Next
+          </button>
+
+          <span class="page-info"> Page {{ currentPage }} of {{ totalPages }} </span>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- Delete Confirmation Modal -->
+  <app-delete-confirmation-modal
+    [isVisible]="showDeleteModal"
+    [employeeName]="employeeToDelete?.name || ''"
+    (close)="closeDeleteModal()"
+    (confirm)="confirmDelete()">
+  </app-delete-confirmation-modal>
+</div>
