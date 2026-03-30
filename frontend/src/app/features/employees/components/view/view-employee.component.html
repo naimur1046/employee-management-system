@@ -1,0 +1,92 @@
+<div class="view-employee-container">
+  <!-- Loading State -->
+  <ng-container *ngIf="isLoading; else contentOrError">
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading employee details...</p>
+    </div>
+  </ng-container>
+
+  <ng-template #contentOrError>
+    <div *ngIf="error" class="error-container">
+      <span class="material-icons error-icon">error_outline</span>
+      <p class="error-message">{{ error }}</p>
+      <button class="btn-retry" (click)="goBack()">
+        <span class="material-icons">arrow_back</span> Back to List
+      </button>
+    </div>
+
+    <div *ngIf="!error && employee" class="employee-details-wrapper">
+      <!-- Title Section -->
+      <div class="max-w-4xl mx-auto text-center mb-12">
+        <h1 class="text-5xl md:text-6xl font-extrabold text-[#053355] mb-4">
+          Employee Details
+        </h1>
+        <div class="w-24 h-1 bg-[#FFB452] mx-auto rounded-full mb-4"></div>
+      </div>
+
+      <!-- Employee Info Card -->
+      <div class="employee-card">
+        <div class="card-header">
+          <h2 class="employee-name">{{ employee.fullName }}</h2>
+          <span class="employee-designation">{{ employee.designation }}</span>
+        </div>
+
+        <div class="card-body">
+          <div class="info-grid">
+            <div class="info-item">
+              <label>Department</label>
+              <p>{{ employee.department }}</p>
+            </div>
+
+            <div class="info-item">
+              <label>Contact Number</label>
+              <p>{{ employee.contactNumber }}</p>
+            </div>
+
+            <div class="info-item">
+              <label>Organization</label>
+              <p>{{ employee.organization }}</p>
+            </div>
+
+            <div class="info-item">
+              <label>Branch</label>
+              <p>{{ employee.branch }}</p>
+            </div>
+
+            <div class="info-item">
+              <label>Campus</label>
+              <p>{{ employee.campus }}</p>
+            </div>
+
+            <div class="info-item">
+              <label>Blood Group</label>
+              <p>{{ employee.bloodGroup }}</p>
+            </div>
+
+            <div class="info-item">
+              <label>Office Email</label>
+              <p>{{ employee.officeEmail }}</p>
+            </div>
+
+            <div class="info-item">
+              <label>Pin</label>
+              <p>{{ employee.pin }}</p>
+            </div>
+
+            <div class="info-item">
+              <label>Name</label>
+              <p>{{ employee.name }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <button class="btn-back" (click)="goBack()">
+            <span class="material-icons">arrow_back</span> Back to List
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
