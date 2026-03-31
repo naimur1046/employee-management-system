@@ -10,4 +10,5 @@ public class AuthResponseDto
     public Guid Id { get; set; }
     public string? MobileNumber { get; set; }
     public UserRole Role { get; set; }
+    public UserStatus Status { get; set; }
 }
