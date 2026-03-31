@@ -1,62 +1,105 @@
-<div class="register-container">
-  <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <h2>Register</h2>
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#06608a] to-[#1DAEDA]">
+  <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md">
+    <h1 class="text-4xl font-bold text-center text-[#053355] mb-2">Register</h1>
+    <div class="w-24 h-1 bg-[#FFB452] mx-auto rounded-full mb-4"></div>
 
-    <div *ngIf="successMessage" class="alert alert-success">
-      {{ successMessage }}
-    </div>
-
-    <div *ngIf="errorMessage" class="alert alert-error">
-      {{ errorMessage }}
-    </div>
-
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input
-        type="text"
-        id="name"
-        formControlName="name"
-        placeholder="Enter your name"
-        [class.error]="name?.invalid && name?.touched"
-      />
-      <div *ngIf="name?.invalid && name?.touched" class="error-message">
-        <span *ngIf="name?.errors?.['required']">Name is required.</span>
-        <span *ngIf="name?.errors?.['minlength']">Name must be at least 2 characters long.</span>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <label for="name" class="block text-gray-700 text-base font-bold mb-2">
+          Name
+        </label>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          placeholder="Enter your name"
+          class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-lg text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          [class.border-red-500]="name?.invalid && name?.touched"
+        />
+        <div *ngIf="name?.invalid && name?.touched" class="text-red-600 text-sm mt-1">
+          <span *ngIf="name?.errors?.['required']">Name is required.</span>
+          <span *ngIf="name?.errors?.['minlength']">Name must be at least 2 characters long.</span>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        formControlName="email"
-        placeholder="Enter your email"
-        [class.error]="email?.invalid && email?.touched"
-      />
-      <div *ngIf="email?.invalid && email?.touched" class="error-message">
-        <span *ngIf="email?.errors?.['required']">Email is required.</span>
-        <span *ngIf="email?.errors?.['email']">Please enter a valid email address.</span>
+      <div class="mb-4">
+        <label for="email" class="block text-gray-700 text-base font-bold mb-2">
+          Email
+        </label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="Enter your email"
+          class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-lg text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          [class.border-red-500]="email?.invalid && email?.touched"
+        />
+        <div *ngIf="email?.invalid && email?.touched" class="text-red-600 text-sm mt-1">
+          <span *ngIf="email?.errors?.['required']">Email is required.</span>
+          <span *ngIf="email?.errors?.['email']">Please enter a valid email address.</span>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        formControlName="password"
-        placeholder="Enter your password"
-        [class.error]="password?.invalid && password?.touched"
-      />
-      <div *ngIf="password?.invalid && password?.touched" class="error-message">
-        <span *ngIf="password?.errors?.['required']">Password is required.</span>
-        <span *ngIf="password?.errors?.['minlength']"
-          >Password must be at least 6 characters long.</span
+      <div class="mb-4">
+        <label for="mobileNumber" class="block text-gray-700 text-base font-bold mb-2">
+          Mobile Number
+        </label>
+        <input
+          type="tel"
+          id="mobileNumber"
+          formControlName="mobileNumber"
+          placeholder="Enter your mobile number"
+          class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-lg text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+      </div>
+
+      <div class="mb-6">
+        <label for="password" class="block text-gray-700 text-base font-bold mb-2">
+          Password
+        </label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="Enter your password"
+          class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-lg text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+          [class.border-red-500]="password?.invalid && password?.touched"
+        />
+        <div *ngIf="password?.invalid && password?.touched" class="text-red-600 text-sm mt-1">
+          <span *ngIf="password?.errors?.['required']">Password is required.</span>
+          <span *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters long.</span>
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="mb-4 text-red-600 text-base text-center">
+        {{ errorMessage }}
+      </div>
+
+      <div *ngIf="successMessage" class="mb-4 text-green-600 text-base text-center">
+        {{ successMessage }}
+      </div>
+
+      <div class="flex items-center justify-center">
+        <button
+          type="submit"
+          [disabled]="registerForm.invalid || isLoading"
+          class="bg-[#FFB452] hover:bg-[#053355] disabled:bg-blue-300 text-[#053355] hover:text-white font-bold py-2 px-6 rounded-full focus:outline-none focus:shadow-outline transition-all duration-300"
         >
+          {{ isLoading ? 'Registering...' : 'Register' }}
+        </button>
       </div>
-    </div>
+    </form>
 
-    <button type="submit" class="register-btn" [disabled]="registerForm.invalid">Register</button>
-  </form>
+    <div class="mt-6 text-center">
+      <p class="text-gray-700 text-base">
+        Already have an account?
+        <button
+          (click)="navigateToLogin()"
+          class="text-[#053355] font-bold hover:underline focus:outline-none"
+        >
+          Login
+        </button>
+      </p>
+    </div>
+  </div>
 </div>
