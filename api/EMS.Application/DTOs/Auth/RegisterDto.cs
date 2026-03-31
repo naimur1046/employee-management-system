@@ -9,4 +9,5 @@ public class RegisterDto
     public required string Name { get; set; }
     public string? MobileNumber { get; set; }
     public UserRole Role { get; set; } = UserRole.User;
+    public UserStatus Status { get; set; } = UserStatus.Active;
 }

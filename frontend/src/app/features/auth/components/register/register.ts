@@ -14,6 +14,7 @@ export class Register {
   registerForm: FormGroup;
   errorMessage = '';
   successMessage = '';
+  isLoading = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,7 +24,8 @@ export class Register {
     this.registerForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      mobileNumber: ['']
     });
   }
 
@@ -31,12 +33,18 @@ export class Register {
     if (this.registerForm.valid) {
       this.errorMessage = '';
       this.successMessage = '';
+      this.isLoading = true;
 
-      const registerData: RegisterRequest = this.registerForm.value;
+      const registerData: RegisterRequest = {
+        name: this.registerForm.value.name,
+        email: this.registerForm.value.email,
+        password: this.registerForm.value.password,
+        mobileNumber: this.registerForm.value.mobileNumber || null
+      };
 
       this.authService.register(registerData).subscribe({
         next: (response) => {
-
+          this.isLoading = false;
           if (response.success) {
             this.successMessage = response.message || 'Registration successful!';
             this.registerForm.reset();
@@ -48,6 +56,7 @@ export class Register {
           }
         },
         error: (error) => {
+          this.isLoading = false;
           this.errorMessage = error.error?.message || 'Error in registration!';
           console.error('Registration error:', error);
         }
@@ -57,7 +66,12 @@ export class Register {
     }
   }
 
+  navigateToLogin(): void {
+    this.router.navigate(['/auth/login']);
+  }
+
   get name() { return this.registerForm.get('name'); }
   get email() { return this.registerForm.get('email'); }
   get password() { return this.registerForm.get('password'); }
+  get mobileNumber() { return this.registerForm.get('mobileNumber'); }
 }

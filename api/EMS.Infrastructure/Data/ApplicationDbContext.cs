@@ -1,4 +1,5 @@
 using EMS.Domain.Entities;
+using EMS.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace EMS.Infrastructure.Data;
@@ -41,6 +42,9 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.Role)
                 .IsRequired()
                 .HasConversion<string>();
+            entity.Property(e => e.Status)
+                .IsRequired()
+                .HasDefaultValue(UserStatus.Active);
         });
 
         modelBuilder.Entity<Employee>(entity =>

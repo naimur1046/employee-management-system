@@ -13,15 +13,14 @@ export class DashboardComponent implements OnInit {
   stats: DashboardStats[] = [
     { title: 'Total Employees', value: 0, icon: '👥', color: '#667eea', bgColor: '#e8ecff' },
     { title: 'Departments', value: 0, icon: '🏢', color: '#f39c12', bgColor: '#fef5e7' },
-    { title: 'Active Today', value: 0, icon: '✅', color: '#27ae60', bgColor: '#e8f8f0' },
-    { title: 'Pending Actions', value: 0, icon: '⏳', color: '#e74c3c', bgColor: '#fdeaea' }
+    { title: 'Active Today', value: 0, icon: '✅', color: '#27ae60', bgColor: '#e8f8f0' }
   ];
 
   recentActivities: RecentActivity[] = [
-    { id: 1, action: 'Employee added:', employee: 'John Doe', time: '2 hours ago', type: 'add' },
-    { id: 2, action: 'Employee updated:', employee: 'Jane Smith', time: '4 hours ago', type: 'edit' },
-    { id: 3, action: 'Employee added:', employee: 'Bob Wilson', time: '1 day ago', type: 'add' },
-    { id: 4, action: 'Employee removed:', employee: 'Alice Brown', time: '2 days ago', type: 'delete' }
+    { id: 1, action: 'Employee added:', employee: 'Naimur Rahamna', time: '2 hours ago', type: 'add' },
+    { id: 2, action: 'Employee updated:', employee: 'Hasan Ahmed', time: '4 hours ago', type: 'edit' },
+    { id: 3, action: 'Employee added:', employee: 'Safayet Rafi', time: '1 day ago', type: 'add' },
+    { id: 4, action: 'Employee removed:', employee: 'Naim Intisar', time: '2 days ago', type: 'delete' }
   ];
 
   ngOnInit(): void {
@@ -29,11 +28,9 @@ export class DashboardComponent implements OnInit {
   }
 
   loadStats(): void {
-    // Mock data - Replace with actual API calls
-    this.stats[0].value = 150; // Total Employees
-    this.stats[1].value = 8;   // Departments
-    this.stats[2].value = 142; // Active Today
-    this.stats[3].value = 5;   // Pending Actions
+    this.stats[0].value = 1;
+    this.stats[1].value = 2;
+    this.stats[2].value = 3;
   }
 
   getActivityIcon(type: string): string {

@@ -42,7 +42,8 @@ public class AuthService : IAuthService
             Email = registerDto.Email,
             Password = BCrypt.Net.BCrypt.HashPassword(registerDto.Password),
             MobileNumber = registerDto.MobileNumber,
-            Role = registerDto.Role
+            Role = registerDto.Role,
+            Status = registerDto.Status
         };
 
         var token = GenerateJwtToken(user);
@@ -56,7 +57,8 @@ public class AuthService : IAuthService
             Name = user.Name,
             Email = user.Email,
             MobileNumber = user.MobileNumber,
-            Role = user.Role
+            Role = user.Role,
+            Status = user.Status
         };
     }
 
@@ -80,7 +82,8 @@ public class AuthService : IAuthService
             Name = user.Name,
             Email = user.Email,
             MobileNumber = user.MobileNumber,
-            Role = user.Role
+            Role = user.Role,
+            Status = user.Status
         };
     }
 

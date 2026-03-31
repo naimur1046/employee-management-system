@@ -26,13 +26,31 @@ export class DepartmentService {
   }
 
   addDepartment(department: Department): Observable<Department> {
-    return this.http.post<SingleDepartmentResponse>(API_ENDPOINTS.DEPARTMENTS.BASE, department).pipe(
+    const payload = {
+      name: department.name,
+      code: department.code,
+      description: department.description,
+      managerName: department.managerName,
+      managerEmail: department.managerEmail,
+      location: department.location,
+      status: department.status === 'active' ? 'Active' : 'Inactive'
+    };
+    return this.http.post<SingleDepartmentResponse>(API_ENDPOINTS.DEPARTMENTS.BASE, payload).pipe(
       map(response => response?.data)
     );
   }
 
   updateDepartment(id: string, department: Department): Observable<Department> {
-    return this.http.put<SingleDepartmentResponse>(API_ENDPOINTS.DEPARTMENTS.BY_ID(id), department).pipe(
+    const payload = {
+      name: department.name,
+      code: department.code,
+      description: department.description,
+      managerName: department.managerName,
+      managerEmail: department.managerEmail,
+      location: department.location,
+      status: department.status === 'active' ? 10 : 20
+    };
+    return this.http.put<SingleDepartmentResponse>(API_ENDPOINTS.DEPARTMENTS.BY_ID(id), payload).pipe(
       map(response => response?.data)
     );
   }

@@ -20,11 +20,11 @@
 
   <!-- Quick Actions -->
   <div class="quick-actions-section">
-    <h2 class="section-title">Quick Actions</h2>
+    <h2 class="section-title">Actions You Can do</h2>
     <div class="quick-actions-grid">
       <button class="quick-action-btn" (click)="navigateTo('employees')">
         <span class="icon-placeholder">👥</span>
-        <span>Manage Employees</span>
+        <span>Manage </span>
       </button>
       <button class="quick-action-btn" (click)="navigateTo('departments')">
         <span class="icon-placeholder">🏢</span>
@@ -50,7 +50,9 @@
           <span class="icon-placeholder">{{ getActivityIcon(activity.type) }}</span>
         </div>
         <div class="activity-content">
-          <p class="activity-text">{{ activity.action }} <strong>{{ activity.employee }}</strong></p>
+          <p class="activity-text">
+            {{ activity.action }} <strong>{{ activity.employee }}</strong>
+          </p>
           <span class="activity-time">{{ activity.time }}</span>
         </div>
       </div>
@@ -65,29 +67,29 @@
     <div class="info-card">
       <h3 class="info-card-title">📋 Employee Management</h3>
       <p class="info-card-text">
-        Add, edit, or remove employee records. Keep track of employee details including 
-        contact information, department, designation, and more.
+        Add, edit, or remove employee records. Keep track of employee details including contact
+        information, department, designation, and more.
       </p>
     </div>
     <div class="info-card">
       <h3 class="info-card-title">🏛️ Department Overview</h3>
       <p class="info-card-text">
-        Monitor department-wise employee distribution and manage organizational structure 
+        Monitor department-wise employee distribution and manage organizational structure
         efficiently.
       </p>
     </div>
     <div class="info-card">
       <h3 class="info-card-title">📧 Communication</h3>
       <p class="info-card-text">
-        Access employee contact information including office email and contact numbers 
-        for seamless communication.
+        Access employee contact information including office email and contact numbers for seamless
+        communication.
       </p>
     </div>
     <div class="info-card">
       <h3 class="info-card-title">🔒 Data Security</h3>
       <p class="info-card-text">
-        All employee data is securely stored with PIN protection and controlled access 
-        for authorized personnel only.
+        All employee data is securely stored with PIN protection and controlled access for
+        authorized personnel only.
       </p>
     </div>
   </div>

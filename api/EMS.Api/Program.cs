@@ -71,6 +71,7 @@ try
     builder.Services.AddScoped<IEmployeeService, EmployeeService>();
     builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
     builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+    builder.Services.AddScoped<IDashboardService, DashboardService>();
 
     var jwtSettings = builder.Configuration.GetSection("Jwt");
     var key = Encoding.ASCII.GetBytes(jwtSettings["Key"] ?? throw new InvalidOperationException("JWT Key is not configured"));
