@@ -57,7 +57,7 @@
             type="tel"
             id="contactNumber"
             class="form-input"
-            placeholder="+1234567890"
+            placeholder="+8801..."
             [(ngModel)]="employee.contactNumber"
             name="contactNumber"
             (ngModelChange)="onInputChange()"
@@ -198,7 +198,7 @@
             type="text"
             id="contactNumberDisplay"
             class="form-input"
-            placeholder="+1234567890"
+            placeholder="+8801..."
             [value]="employee.contactNumber"
             disabled
           />
@@ -207,7 +207,6 @@
       </div>
     </div>
 
-    <!-- Form Actions -->
     <div class="form-actions">
       <button type="button" class="btn btn-secondary" (click)="onCancel()">
         <span class="icon-placeholder">✕</span> Cancel
