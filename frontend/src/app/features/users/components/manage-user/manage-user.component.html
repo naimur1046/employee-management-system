@@ -1,0 +1,148 @@
+<div class="manage-user-container">
+  <div *ngIf="successMessage" class="success-message">
+    <span class="material-icons">check_circle</span>
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <span class="material-icons">error</span>
+    {{ error }}
+  </div>
+
+  <ng-container *ngIf="isLoading; else contentOrError">
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading users...</p>
+    </div>
+  </ng-container>
+
+  <ng-template #contentOrError>
+    <div *ngIf="!error">
+      <div class="header-section">
+        <h1 class="page-title">Manage Users</h1>
+        <button class="btn-add-new" (click)="addNewUser()">
+          <span class="icon-placeholder">+</span> Add New User
+        </button>
+      </div>
+      <div class="search-section">
+        <div class="search-box">
+          <span class="icon-placeholder search-icon">🔍</span>
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Search user by name, email, username, role..."
+            [(ngModel)]="searchTerm"
+            (ngModelChange)="onSearchChange()"
+          />
+        </div>
+      </div>
+      <div class="table-section">
+        <div class="table-header">
+          <h2 class="table-title">User List</h2>
+          <span class="total-count">{{ filteredUsers.length }} User(s)</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="user-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile Number</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of paginatedUsers">
+                <td><strong>{{ user.name }}</strong></td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.mobileNumber || '-' }}</td>
+                <td>
+                  <span class="role-badge">{{ user.role }}</span>
+                </td>
+                <td>
+                  <span
+                    class="status-badge"
+                    [class.active]="user.status === 'active'"
+                    [class.inactive]="user.status === 'inactive'"
+                  >
+                    {{ user.status === 'active' ? 'Active' : 'Inactive' }}
+                  </span>
+                </td>
+                <td>
+                  <div class="action-buttons">
+                    <button
+                      class="btn-action btn-view"
+                      (click)="viewUser(user.id)"
+                      title="View"
+                    >
+                      <span class="material-icons">visibility</span>
+                    </button>
+                    <button
+                      class="btn-action btn-edit"
+                      (click)="editUser(user.id)"
+                      title="Edit"
+                    >
+                      <span class="material-icons">edit</span>
+                    </button>
+                    <button
+                      class="btn-action btn-delete"
+                      (click)="openDeleteModal(user.id, user.name)"
+                      title="Delete"
+                    >
+                      <span class="material-icons">delete</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="filteredUsers.length === 0">
+                <td colspan="6" class="no-data">No users found</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination-section" *ngIf="totalPages > 1">
+          <button
+            class="btn-pagination"
+            [disabled]="currentPage === 1"
+            (click)="changePage(currentPage - 1)"
+          >
+            Previous
+          </button>
+
+          <div class="page-numbers">
+            <button
+              *ngFor="let page of pageNumbers"
+              class="btn-page-number"
+              [class.active]="page === currentPage"
+              (click)="changePage(page)"
+            >
+              {{ page }}
+            </button>
+          </div>
+
+          <button
+            class="btn-pagination"
+            [disabled]="currentPage === totalPages"
+            (click)="changePage(currentPage + 1)"
+          >
+            Next
+          </button>
+
+          <span class="page-info"> Page {{ currentPage }} of {{ totalPages }} </span>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <app-delete-confirmation-modal
+    [isVisible]="showDeleteModal"
+    [employeeName]="userToDelete?.name || ''"
+    (close)="closeDeleteModal()"
+    (confirm)="confirmDelete()"
+  >
+  </app-delete-confirmation-modal>
+</div>
