@@ -1,0 +1,77 @@
+<div class="view-user-container">
+  <ng-container *ngIf="isLoading; else contentOrError">
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading user details...</p>
+    </div>
+  </ng-container>
+
+  <ng-template #contentOrError>
+    <div *ngIf="error" class="error-container">
+      <span class="material-icons error-icon">error_outline</span>
+      <p class="error-message">{{ error }}</p>
+      <button class="btn-retry" (click)="goBack()">
+        <span class="material-icons">arrow_back</span> Back to List
+      </button>
+    </div>
+
+    <div *ngIf="!error && user" class="user-details-wrapper">
+      <div class="max-w-4xl mx-auto text-center mb-12">
+        <h1 class="text-5xl md:text-6xl font-extrabold text-[#053355] mb-4">
+          User Details
+        </h1>
+        <div class="w-24 h-1 bg-[#FFB452] mx-auto rounded-full mb-4"></div>
+      </div>
+
+      <div class="user-card">
+        <div class="card-header">
+          <div class="user-info">
+            <h2 class="user-name">{{ user.name }}</h2>
+          </div>
+          <span
+            class="status-badge"
+            [class.active]="user.status === 'active'"
+            [class.inactive]="user.status === 'inactive'"
+          >
+            {{ user.status === 'active' ? 'Active' : 'Inactive' }}
+          </span>
+        </div>
+
+        <div class="card-body">
+          <div class="info-grid">
+            <div class="info-item">
+              <label>Email</label>
+              <p>{{ user.email || 'Not assigned' }}</p>
+            </div>
+
+            <div class="info-item">
+              <label>Mobile Number</label>
+              <p>{{ user.mobileNumber || 'Not assigned' }}</p>
+            </div>
+
+            <div class="info-item">
+              <label>Role</label>
+              <p>
+                <span class="role-badge">{{ user.role || 'Not assigned' }}</span>
+              </p>
+            </div>
+
+            <div class="info-item full-width">
+              <label>Last Updated</label>
+              <p>{{ (user.updatedAt | date:'MMM d, y') || 'N/A' }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <button class="btn-back" (click)="goBack()">
+            <span class="material-icons">arrow_back</span> Back to List
+          </button>
+          <button class="btn-edit" (click)="editUser()">
+            <span class="material-icons">edit</span> Edit User
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
