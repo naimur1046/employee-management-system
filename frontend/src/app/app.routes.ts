@@ -34,6 +34,10 @@ export const routes: Routes = [
         loadChildren: () => import('./features/departments/departments-routing').then(m => m.departmentsRoutes),
       },
       {
+        path: 'users',
+        loadChildren: () => import('./features/users/users-routing').then(m => m.usersRoutes),
+      },
+      {
         path: '',
         redirectTo: 'admin',
         pathMatch: 'full',
