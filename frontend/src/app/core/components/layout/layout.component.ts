@@ -17,6 +17,7 @@ export class LayoutComponent {
     { id: 'dashboard', name: 'Dashboard' },
     { id: 'employees', name: 'Employees' },
     { id: 'departments', name: 'Departments' },
+    { id: 'users', name: 'Users' },
     { id: 'settings', name: 'Settings' }
   ];
 
@@ -24,6 +25,7 @@ export class LayoutComponent {
     dashboard: 'dashboard',
     employees: 'people',
     departments: 'business',
+    users: 'group',
     settings: 'settings'
   };
 
@@ -45,6 +47,8 @@ export class LayoutComponent {
       this.activeSection = 'employees';
     } else if (url.includes('/departments')) {
       this.activeSection = 'departments';
+    } else if (url.includes('/users')) {
+      this.activeSection = 'users';
     } else if (url.includes('/admin')) {
       if (url.includes('section=employees')) {
         this.activeSection = 'employees';
@@ -67,14 +71,15 @@ export class LayoutComponent {
       case 'departments':
         this.router.navigate(['/departments']);
         break;
+      case 'users':
+        this.router.navigate(['/users']);
+        break;
       case 'settings':
-        // Navigate to settings when implemented
         break;
     }
   }
 
   logout(): void {
-    // TODO: Implement logout logic
     this.router.navigate(['/auth/login']);
   }
 }
